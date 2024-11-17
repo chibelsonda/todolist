@@ -29,7 +29,7 @@ class TaskRequest extends FormRequest
         return [
             'title' => 'required|string' . $uniqueRule,
             'description' => 'required|string',
-            'status' => 'required|int'
+            'status' => 'required|boolean'
         ];
     }
 }
