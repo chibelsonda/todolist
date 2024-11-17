@@ -1,3 +1,7 @@
+# todolist
+
+Create, udpate, delete, and search todos.
+
 ## Installation
 
 1. Run `composer install` to install dependencies
