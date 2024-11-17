@@ -5,6 +5,8 @@ namespace App\Services;
 use Exception;
 use App\Models\Task;
 use App\Services\BaseService;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TaskService extends BaseService
 {    
@@ -16,7 +18,12 @@ class TaskService extends BaseService
     public function getAll(): array
     {
         try {
-            $tasks = Task::paginate(50);
+            $tasks = Task::select(
+                'id',
+                'title',
+                'description',
+                DB::raw("if(status= 0, 'Pending', 'Completed') as status")
+            )->paginate(50);
 
             return $this->setResponse(data: ['tasks' => $tasks]);
 
@@ -36,7 +43,7 @@ class TaskService extends BaseService
     {
         try {
             $task = Task::create($task);
-
+            
             return $this->setResponse(
                 message: 'Task has been created.', 
                 data: ['task' => $task]

@@ -16,4 +16,12 @@ class Task extends Model
         'description',
         'status',
     ];
+
+    public function getStatusAttribute($value)
+    {
+        if (is_int($value)){
+            return (bool)$value;
+        }
+        return $value;
+    }
 }
